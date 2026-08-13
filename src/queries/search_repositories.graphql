@@ -1,0 +1,59 @@
+# Repositorios mais estrelados do GitHub, em ordem decrescente de estrelas.
+# Cobre todos os campos exigidos pelas RQ01 a RQ06 em uma unica passada.
+#
+# Variaveis:
+#   $pageSize: quantos repositorios por pagina (maximo 100; valores altos podem
+#              estourar o timeout da API por causa dos totalCount agregados).
+#   $cursor:   cursor de paginacao; null na primeira chamada.
+
+query SearchPopularRepositories($pageSize: Int!, $cursor: String) {
+  rateLimit {
+    cost
+    remaining
+    resetAt
+  }
+  search(query: "stars:>1 sort:stars-desc", type: REPOSITORY, first: $pageSize, after: $cursor) {
+    repositoryCount
+    pageInfo {
+      hasNextPage
+      endCursor
+    }
+    nodes {
+      ... on Repository {
+        nameWithOwner
+        url
+        stargazerCount
+
+        # RQ01 - idade do repositorio
+        createdAt
+
+        # RQ04 - tempo ate a ultima atualizacao
+        pushedAt
+        updatedAt
+
+        # RQ05 - linguagem primaria
+        primaryLanguage {
+          name
+        }
+
+        # RQ02 - total de pull requests aceitas
+        mergedPullRequests: pullRequests(states: MERGED) {
+          totalCount
+        }
+
+        # RQ03 - total de releases
+        releases {
+          totalCount
+        }
+
+        # RQ06 - razao entre issues fechadas e total de issues
+        closedIssues: issues(states: CLOSED) {
+          totalCount
+        }
+        totalIssues: issues {
+          totalCount
+        }
+      }
+    }
+  }
+}

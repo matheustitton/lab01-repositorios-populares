@@ -1,0 +1,7 @@
+# A coleta (src/infrastructure, src/collection, src/storage) roda SOMENTE com a
+# biblioteca padrao do Python - nenhuma dependencia abaixo consulta a API do GitHub.
+# As dependencias existem apenas para analise, visualizacao e testes.
+
+pandas==2.2.2
+matplotlib==3.9.0
+pytest==8.2.2

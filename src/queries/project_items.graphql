@@ -1,0 +1,60 @@
+# Itens do GitHub Projects (v2) do grupo, com o valor atual do campo Status.
+# Base do snapshot de fechamento de sprint (Parte 2, item 6): como a API nao expoe o
+# historico de mudanca de coluna, a serie de snapshots exportados sprint a sprint
+# cumpre esse papel para os Labs 04 e 05.
+#
+# Requer token com escopo read:project.
+#
+# Variaveis:
+#   $owner:  login do usuario ou da organizacao dona do Project.
+#   $number: numero do Project (visivel na URL: /users/<owner>/projects/<number>).
+#   $cursor: cursor de paginacao; null na primeira chamada.
+
+query ProjectItems($owner: String!, $number: Int!, $cursor: String) {
+  user(login: $owner) {
+    projectV2(number: $number) {
+      title
+      url
+      items(first: 50, after: $cursor) {
+        pageInfo {
+          hasNextPage
+          endCursor
+        }
+        nodes {
+          id
+          type
+          createdAt
+          updatedAt
+
+          # Valor atual da coluna (campo Status do board)
+          fieldValueByName(name: "Status") {
+            ... on ProjectV2ItemFieldSingleSelectValue {
+              name
+            }
+          }
+
+          content {
+            ... on Issue {
+              number
+              title
+              state
+              url
+              createdAt
+              closedAt
+              assignees(first: 5) {
+                nodes {
+                  login
+                }
+              }
+              labels(first: 10) {
+                nodes {
+                  name
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
