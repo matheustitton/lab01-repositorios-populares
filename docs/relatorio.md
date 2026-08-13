@@ -14,17 +14,19 @@
 
 ### Hipóteses informais
 
-Detalhadas em [hipoteses.md](hipoteses.md).
+Raciocínio completo em [hipoteses.md](hipoteses.md). As hipóteses foram registradas após
+a coleta do Lab01S01 (100 repositórios) e antes da coleta de 1000 — a amostra maior é o
+teste real de cada uma.
 
 | RQ | Hipótese |
 |---|---|
-| RQ01 | `<preencher>` |
-| RQ02 | `<preencher>` |
-| RQ03 | `<preencher>` |
-| RQ04 | `<preencher>` |
-| RQ05 | `<preencher>` |
-| RQ06 | `<preencher>` |
-| RQ07 | `<preencher>` |
+| RQ01 | **Sim.** Estrela é contador que só cresce, então acumular muitas exige tempo. Mediana bem acima de 5 anos, com cauda de projetos recentes de IA. |
+| RQ02 | **Sim em volume, com assimetria forte.** O número reflete modelo de governança mais que popularidade: infraestrutura formal tem dezenas de milhares, listas curadas têm poucas. |
+| RQ03 | **Não.** Boa parte dos mais estrelados não é software instalável (listas, roteiros de estudo) e nunca publica release. Mediana baixa e fração grande com zero. |
+| RQ04 | **Sim, fortemente.** Popularidade atrai contribuição contínua. Mediana de poucos dias; deve ser a hipótese mais bem confirmada. |
+| RQ05 | **Parcialmente.** Concordância no topo (TypeScript, Python, JavaScript), mas ordem diferente — o Octoverse conta contribuidores e este estudo conta estrelas. Fração relevante sem linguagem primária. |
+| RQ06 | **Sim, mediana acima de 0,8.** Triagem ativa e fechamento por inatividade. Ressalva: PRs contam como issues e inflam a razão. |
+| RQ07 | **Não.** A linguagem explica pouco; o tipo de projeto explica muito. Se houver efeito, deve aparecer em releases, não em PRs ou atualidade. |
 
 ## 2. Metodologia
 
