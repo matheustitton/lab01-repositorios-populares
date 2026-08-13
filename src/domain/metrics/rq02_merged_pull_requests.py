@@ -14,4 +14,4 @@ COLUMN = "merged_pull_requests"
 
 def merged_pull_requests(repository: Repository) -> int:
     """Total de pull requests aceitas."""
-    raise NotImplementedError
+    return repository.merged_pull_requests

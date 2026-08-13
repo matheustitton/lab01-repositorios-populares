@@ -76,5 +76,25 @@ Estrutura do GitHub Projects, colunas e política de WIP: ver [processo.md](proc
 
 ## 6. Ameaças à validade
 
-`<limitações: teto de 1000 resultados da busca, estrelas como proxy de popularidade,
-totalCount de issues incluir PRs, corte temporal único da coleta>`
+**Confirmadas na validação da amostra** (ver [validacao_amostra.md](validacao_amostra.md)):
+
+- **Teto de 1000 no `totalCount` de releases (RQ03).** A GraphQL para de contar em 1000:
+  `ggml-org/llama.cpp` reporta 1000 tendo 6844. Afeta 4% da coleta de 100. A mediana da
+  RQ03 permanece válida, mas média, máximo e cauda superior não. Os demais campos foram
+  verificados e não têm teto.
+- **Corte temporal único.** O dataset é um retrato do instante da coleta. Estrelas e
+  `pushedAt` mudam continuamente — a validação mediu deriva de poucas unidades por hora
+  nos repositórios mais populares.
+
+**Limitações de desenho:**
+
+- **Teto de 1000 resultados da busca.** A amostra é exatamente o limite que uma consulta
+  `search` devolve; ir além exigiria fatiar por faixa de estrelas.
+- **Estrelas como proxy de popularidade.** Estrela mede visibilidade e favoritismo, não
+  uso em produção nem qualidade.
+- **`totalCount` de issues inclui pull requests.** No GitHub, todo PR também é uma issue,
+  o que infla o denominador da RQ06 em repositórios com muitos PRs.
+- **Repositórios sem issues na RQ06.** 11% da coleta não tem nenhuma issue; incluí-los com
+  razão 0.0 puxaria a mediana para baixo sem significar baixa taxa de resolução.
+- **`releases` conta apenas releases publicadas**, não tags. Projetos que versionam só por
+  tag aparecem com 0 — 41% da coleta está nessa situação.

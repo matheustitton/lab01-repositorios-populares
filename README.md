@@ -38,6 +38,18 @@ Coleta dos repositórios (Lab01S01 com 100, Lab01S02 com 1000):
 python -m src.cli.collect_repositories --limit 1000
 ```
 
+Processamento das métricas e exportação em CSV (Lab01S01):
+
+```bash
+python -m src.cli.process_data
+```
+
+Validação da amostra coletada, conferindo contra a API REST (Lab01S01):
+
+```bash
+python -m src.cli.validate_sample --size 8
+```
+
 Análise e gráficos das 7 RQs (Lab01S03):
 
 ```bash
@@ -84,6 +96,7 @@ reaproveita integralmente o código de consulta da Parte 1.
 | Documento | Conteúdo |
 |---|---|
 | [docs/relatorio.md](docs/relatorio.md) | Relatório final |
+| [docs/validacao_amostra.md](docs/validacao_amostra.md) | Conferência da amostra contra a REST |
 | [docs/hipoteses.md](docs/hipoteses.md) | Hipóteses informais por RQ |
 | [docs/metodologia.md](docs/metodologia.md) | Como os dados foram coletados |
 | [docs/processo.md](docs/processo.md) | Colunas do board e política de WIP |
