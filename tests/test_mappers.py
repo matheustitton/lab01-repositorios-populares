@@ -1,13 +1,30 @@
 """Validacao da traducao JSON -> dominio.
 
-Sem rede: tudo sai de `tests/fixtures/search_response_sample.json`.
+A fixture e uma fatia real da coleta do Lab01S01, escolhida para conter os casos de
+borda: repositorio sem linguagem primaria, sem releases e sem issues. Os testes
+localizam cada caso por predicado, e nao por indice, para continuarem validos se a
+fixture for regerada com outra amostra.
 """
 
 from __future__ import annotations
 
 from datetime import datetime, timezone
 
+import pytest
+
 from src.collection.mappers import parse_datetime, to_repository
+
+
+@pytest.fixture
+def nodes(search_response):
+    return search_response["search"]["nodes"]
+
+
+def _primeiro(nodes, criterio, descricao):
+    for node in nodes:
+        if criterio(node):
+            return node
+    pytest.fail(f"a fixture nao contem nenhum repositorio {descricao}")
 
 
 def test_parse_datetime_converte_sufixo_z_em_timezone():
@@ -17,51 +34,70 @@ def test_parse_datetime_converte_sufixo_z_em_timezone():
     assert parsed.tzinfo is not None
 
 
-def test_to_repository_mapeia_todos_os_campos(search_response):
-    node = search_response["search"]["nodes"][0]
+def test_to_repository_mapeia_todos_os_campos_com_os_tipos_certos(nodes):
+    repo = to_repository(nodes[0])
+
+    assert repo.name_with_owner == nodes[0]["nameWithOwner"]
+    assert repo.url.startswith("https://github.com/")
+    assert isinstance(repo.stars, int) and repo.stars > 0
+    assert isinstance(repo.merged_pull_requests, int)
+    assert isinstance(repo.releases, int)
+    assert isinstance(repo.closed_issues, int)
+    assert isinstance(repo.total_issues, int)
+    assert repo.created_at.tzinfo is not None
+    assert repo.pushed_at.tzinfo is not None
+    assert repo.pushed_at >= repo.created_at
+
+
+def test_valores_batem_com_o_json_de_origem(nodes):
+    node = nodes[0]
 
     repo = to_repository(node)
 
-    assert repo.name_with_owner == "exemplo/projeto-maduro"
-    assert repo.stars == 350000
-    assert repo.primary_language == "TypeScript"
-    assert repo.merged_pull_requests == 12500
-    assert repo.releases == 430
-    assert repo.closed_issues == 8000
-    assert repo.total_issues == 10000
-    assert repo.created_at.year == 2014
-    assert repo.pushed_at.year == 2026
+    assert repo.stars == node["stargazerCount"]
+    assert repo.merged_pull_requests == node["mergedPullRequests"]["totalCount"]
+    assert repo.releases == node["releases"]["totalCount"]
+    assert repo.closed_issues == node["closedIssues"]["totalCount"]
+    assert repo.total_issues == node["totalIssues"]["totalCount"]
 
 
-def test_to_repository_aceita_linguagem_primaria_nula(search_response):
-    node = search_response["search"]["nodes"][1]
+def test_todos_os_repositorios_da_amostra_mapeiam_sem_erro(nodes):
+    repos = [to_repository(n) for n in nodes]
+
+    assert len(repos) == len(nodes)
+    assert all(r.closed_issues <= r.total_issues for r in repos)
+
+
+def test_aceita_linguagem_primaria_nula(nodes):
+    node = _primeiro(nodes, lambda n: n["primaryLanguage"] is None, "sem linguagem primaria")
+
+    assert to_repository(node).primary_language is None
+
+
+def test_aceita_repositorio_sem_releases(nodes):
+    node = _primeiro(nodes, lambda n: n["releases"]["totalCount"] == 0, "sem releases")
+
+    assert to_repository(node).releases == 0
+
+
+def test_aceita_repositorio_sem_issues(nodes):
+    node = _primeiro(nodes, lambda n: n["totalIssues"]["totalCount"] == 0, "sem issues")
 
     repo = to_repository(node)
 
-    assert repo.primary_language is None
-
-
-def test_to_repository_aceita_contagens_zeradas(search_response):
-    node = search_response["search"]["nodes"][1]
-
-    repo = to_repository(node)
-
-    assert repo.releases == 0
     assert repo.total_issues == 0
     assert repo.closed_issues == 0
 
 
-def test_to_repository_usa_created_at_quando_pushed_at_e_nulo(search_response):
-    node = dict(search_response["search"]["nodes"][0], pushedAt=None)
+def test_usa_created_at_quando_pushed_at_e_nulo(nodes):
+    node = dict(nodes[0], pushedAt=None)
 
     repo = to_repository(node)
 
     assert repo.pushed_at == repo.created_at
 
 
-def test_to_repository_trata_conexao_ausente(search_response):
-    node = {k: v for k, v in search_response["search"]["nodes"][0].items() if k != "releases"}
+def test_trata_conexao_ausente(nodes):
+    node = {k: v for k, v in nodes[0].items() if k != "releases"}
 
-    repo = to_repository(node)
-
-    assert repo.releases == 0
+    assert to_repository(node).releases == 0
