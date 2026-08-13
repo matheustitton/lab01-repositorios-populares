@@ -43,14 +43,24 @@ Registrado na Issue [#5](https://github.com/matheustitton/lab01-repositorios-pop
 
 ## Snapshots exportados
 
-| Sprint | Arquivo | Data | Itens |
+Todos acumulam no **mesmo arquivo**, `data/snapshots_board.csv`, uma linha por cartão por
+sprint. Reexecutar na mesma sprint substitui as linhas daquela sprint — nunca duplica.
+
+- **Project:** #2 — "@matheustitton's Kanbam de Acompanhamento", vinculado ao repositório
+- **Comando:** `python -m src.cli.export_project_snapshot --sprint lab01s01 --owner matheustitton --number 2`
+
+| Sprint | Data da captura | Itens | Distribuição |
 |---|---|---|---|
-| Lab01S01 | `data/snapshots/project_snapshot_lab01s01.csv` | | |
-| Lab01S02 | `data/snapshots/project_snapshot_lab01s02.csv` | | |
-| Lab01S03 | `data/snapshots/project_snapshot_lab01s03.csv` | | |
+| Lab01S01 | 2026-08-13 | 7 | Done 5 · Doing 1 · Sprint Backlog 1 |
+| Lab01S02 | | | |
+| Lab01S03 | | | |
 
 Como a API do Projects não expõe histórico de mudança de coluna, esta série acumulada é a
 base de dados dos Labs 04 e 05. **Um snapshot não tirado não pode ser reconstruído depois.**
+
+O script também audita o board a cada execução e avisa sobre cartões sem Assignee, cartões
+sem Issue real (draft) e cartões cujo Status contradiz o estado da Issue — os três pontos
+que o enunciado penaliza.
 
 ## Print do board
 
