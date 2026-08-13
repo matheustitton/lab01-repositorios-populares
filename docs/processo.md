@@ -6,25 +6,30 @@
 
 ## Colunas do board (campo Status)
 
+`Backlog → Sprint Backlog → Doing → Review → Done`
+
 | Coluna | Significado | Critério de saída |
 |---|---|---|
 | `Backlog` | Tarefa identificada, ainda não priorizada para a sprint | Entrou no escopo da sprint |
-| `To Do` | Priorizada para a sprint, com Assignee definido | Alguém começou a trabalhar |
+| `Sprint Backlog` | Priorizada para a sprint, com Assignee definido | Alguém começou a trabalhar |
 | `Doing` | Em desenvolvimento | Código pronto e enviado |
 | `Review` | Aguardando revisão de outro integrante | Revisão aprovada |
 | `Done` | Integrada à `main` e validada | — |
 
+> Atende ao mínimo exigido pelo enunciado (`Backlog → To Do → Doing → Review → Done`);
+> o grupo nomeou a segunda coluna como `Sprint Backlog`, que cumpre o mesmo papel de "To Do".
+
 ## Limite de WIP na coluna Doing
 
-- **Limite adotado:** `<preencher — sugerido: 3>`
-- **Justificativa:** `<preencher>`
+- **Limite adotado:** **3**
+- **Justificativa:** o grupo é um trio e cada integrante é responsável por 2–3 RQs, o que
+  dá **uma tarefa em andamento por pessoa**. Um limite maior permitiria que alguém abrisse
+  frentes paralelas e acumulasse trabalho pela metade no fim da sprint; um limite menor
+  bloquearia integrantes ociosos. O limite força terminar antes de começar — quando `Doing`
+  está cheio, quem ficou livre revisa o que está em `Review` em vez de puxar tarefa nova,
+  o que também evita o gargalo de revisão no último dia.
 
-Justificativa sugerida: o grupo é um trio e cada integrante é responsável por 2–3 RQs, o
-que dá **uma tarefa em andamento por pessoa**. Um limite maior permitiria que alguém
-abrisse frentes paralelas e acumulasse trabalho pela metade no fim da sprint; um limite
-menor bloquearia integrantes ociosos. O limite força terminar antes de começar — quando
-`Doing` está cheio, quem ficou livre revisa o que está em `Review` em vez de puxar tarefa
-nova, o que também evita o gargalo de revisão no último dia.
+Registrado na Issue [#5](https://github.com/matheustitton/lab01-repositorios-populares/issues/5).
 
 ## Regras acordadas pelo grupo
 

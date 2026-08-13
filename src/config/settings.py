@@ -22,6 +22,18 @@ ASSETS_DIR = PROJECT_ROOT / "docs" / "assets"
 
 REPOSITORIES_CSV = PROCESSED_DIR / "repositories.csv"
 
+#: Saida consolidada da coleta do Lab01S01, no caminho pedido pela Issue #1.
+RAW_REPOS_JSON = DATA_DIR / "raw_repos_lab01s01.json"
+
+DEFAULT_GRAPHQL_URL = "https://api.github.com/graphql"
+
+#: 10 e o maior valor que se mostrou estavel na pratica. Com 25, a API respondeu 502 de
+#: forma deterministica ao chegar nos repositorios de rank ~76-100: cada repositorio pede
+#: quatro `totalCount` agregados, e o custo por requisicao estoura o tempo de resposta.
+DEFAULT_PAGE_SIZE = 10
+DEFAULT_TARGET_COUNT = 1000
+DEFAULT_REQUEST_TIMEOUT = 60
+
 
 @dataclass(frozen=True)
 class Settings:
@@ -36,23 +48,59 @@ class Settings:
     project_number: int | None
 
 
+class MissingTokenError(RuntimeError):
+    """`GITHUB_TOKEN` ausente ou vazio."""
+
+
+def load_dotenv(path: Path | None = None) -> None:
+    """Carrega pares `CHAVE=valor` de um arquivo `.env` para `os.environ`.
+
+    Implementacao propria e trivial para evitar mais uma dependencia. Ignora linhas
+    vazias e comentarios, e **nao sobrescreve** variaveis ja definidas no ambiente -
+    quem exporta a variavel no terminal manda mais do que o arquivo.
+    """
+    env_path = path or (PROJECT_ROOT / ".env")
+    if not env_path.exists():
+        return
+
+    for line in env_path.read_text(encoding="utf-8").splitlines():
+        stripped = line.strip()
+        if not stripped or stripped.startswith("#") or "=" not in stripped:
+            continue
+        key, _, value = stripped.partition("=")
+        key = key.strip()
+        value = value.strip().strip("'\"")
+        if key and key not in os.environ:
+            os.environ[key] = value
+
+
+def _int_env(name: str, default: int) -> int:
+    raw = os.environ.get(name, "").strip()
+    return int(raw) if raw else default
+
+
 def load_settings() -> Settings:
     """Le o `.env` (se existir) e as variaveis de ambiente.
 
     Levanta `MissingTokenError` quando `GITHUB_TOKEN` nao esta definido - falhar cedo
     e mais util do que receber 401 no meio de uma coleta de 1000 repositorios.
     """
-    raise NotImplementedError
+    load_dotenv()
 
+    token = os.environ.get("GITHUB_TOKEN", "").strip()
+    if not token:
+        raise MissingTokenError(
+            "GITHUB_TOKEN nao definido. Copie .env.example para .env e preencha o token."
+        )
 
-def load_dotenv(path: Path | None = None) -> None:
-    """Carrega pares `CHAVE=valor` de um arquivo `.env` para `os.environ`.
+    project_number = os.environ.get("PROJECT_NUMBER", "").strip()
 
-    Implementacao propria e trivial (5 linhas) para evitar mais uma dependencia.
-    Nao sobrescreve variaveis ja definidas no ambiente.
-    """
-    raise NotImplementedError
-
-
-class MissingTokenError(RuntimeError):
-    """`GITHUB_TOKEN` ausente ou vazio."""
+    return Settings(
+        github_token=token,
+        graphql_url=os.environ.get("GITHUB_GRAPHQL_URL", "").strip() or DEFAULT_GRAPHQL_URL,
+        page_size=_int_env("PAGE_SIZE", DEFAULT_PAGE_SIZE),
+        target_count=_int_env("TARGET_COUNT", DEFAULT_TARGET_COUNT),
+        request_timeout=_int_env("REQUEST_TIMEOUT", DEFAULT_REQUEST_TIMEOUT),
+        project_owner=os.environ.get("PROJECT_OWNER", "").strip() or None,
+        project_number=int(project_number) if project_number else None,
+    )

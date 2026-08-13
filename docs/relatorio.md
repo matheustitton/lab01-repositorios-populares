@@ -70,8 +70,8 @@ Fonte de referência de popularidade: ver [fontes.md](fontes.md).
 
 Estrutura do GitHub Projects, colunas e política de WIP: ver [processo.md](processo.md).
 
-- **Colunas:** Backlog → To Do → Doing → Review → Done
-- **Limite de WIP em Doing:** `<preencher>` — justificativa em [processo.md](processo.md)
+- **Colunas:** Backlog → Sprint Backlog → Doing → Review → Done
+- **Limite de WIP em Doing:** 3 (um por integrante) — justificativa em [processo.md](processo.md)
 - **Print do board:** `<inserir docs/assets/board-lab01.png>`
 
 ## 6. Ameaças à validade

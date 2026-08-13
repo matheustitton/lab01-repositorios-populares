@@ -1,0 +1,52 @@
+{
+  "rateLimit": {
+    "cost": 1,
+    "remaining": 4998,
+    "resetAt": "2026-08-13T15:00:00Z"
+  },
+  "search": {
+    "repositoryCount": 1000,
+    "pageInfo": {
+      "hasNextPage": true,
+      "endCursor": "Y3Vyc29yOjM="
+    },
+    "nodes": [
+      {
+        "nameWithOwner": "exemplo/projeto-maduro",
+        "url": "https://github.com/exemplo/projeto-maduro",
+        "stargazerCount": 350000,
+        "createdAt": "2014-08-13T10:00:00Z",
+        "pushedAt": "2026-08-12T18:30:00Z",
+        "primaryLanguage": { "name": "TypeScript" },
+        "mergedPullRequests": { "totalCount": 12500 },
+        "releases": { "totalCount": 430 },
+        "closedIssues": { "totalCount": 8000 },
+        "totalIssues": { "totalCount": 10000 }
+      },
+      {
+        "nameWithOwner": "exemplo/lista-de-links",
+        "url": "https://github.com/exemplo/lista-de-links",
+        "stargazerCount": 290000,
+        "createdAt": "2016-01-01T00:00:00Z",
+        "pushedAt": "2026-08-01T00:00:00Z",
+        "primaryLanguage": null,
+        "mergedPullRequests": { "totalCount": 900 },
+        "releases": { "totalCount": 0 },
+        "closedIssues": { "totalCount": 0 },
+        "totalIssues": { "totalCount": 0 }
+      },
+      {
+        "nameWithOwner": "exemplo/abandonado",
+        "url": "https://github.com/exemplo/abandonado",
+        "stargazerCount": 150000,
+        "createdAt": "2011-03-15T12:00:00Z",
+        "pushedAt": "2019-06-30T08:00:00Z",
+        "primaryLanguage": { "name": "Python" },
+        "mergedPullRequests": { "totalCount": 42 },
+        "releases": { "totalCount": 3 },
+        "closedIssues": { "totalCount": 120 },
+        "totalIssues": { "totalCount": 500 }
+      }
+    ]
+  }
+}
