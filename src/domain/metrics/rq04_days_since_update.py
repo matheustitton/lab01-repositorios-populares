@@ -9,7 +9,7 @@ dos repositorios mais populares - justamente a amostra deste estudo.
 
 from __future__ import annotations
 
-from datetime import datetime
+from datetime import datetime, timezone
 
 from src.domain.models import Repository
 
@@ -19,4 +19,5 @@ COLUMN = "days_since_update"
 
 def days_since_update(repository: Repository, reference: datetime | None = None) -> float:
     """Dias decorridos desde o ultimo push ate `reference` (default: agora, em UTC)."""
-    raise NotImplementedError
+    delta = (reference or datetime.now(timezone.utc)) - repository.pushed_at
+    return round(delta.total_seconds() / 86400, 2)

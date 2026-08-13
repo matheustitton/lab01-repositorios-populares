@@ -38,6 +38,12 @@ Coleta dos repositórios (Lab01S01 com 100, Lab01S02 com 1000):
 python -m src.cli.collect_repositories --limit 1000
 ```
 
+Processamento das métricas e exportação em CSV (Lab01S01):
+
+```bash
+python -m src.cli.process_data
+```
+
 Validação da amostra coletada, conferindo contra a API REST (Lab01S01):
 
 ```bash

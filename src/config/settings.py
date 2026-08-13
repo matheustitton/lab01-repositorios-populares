@@ -25,6 +25,10 @@ REPOSITORIES_CSV = PROCESSED_DIR / "repositories.csv"
 #: Saida consolidada da coleta do Lab01S01, no caminho pedido pela Issue #1.
 RAW_REPOS_JSON = DATA_DIR / "raw_repos_lab01s01.json"
 
+#: Saidas do processamento do Lab01S01, nos caminhos pedidos pela Issue #3.
+REPOS_CSV = DATA_DIR / "repos_lab01s01.csv"
+RESUMO_CSV = DATA_DIR / "resumo_lab01s01.csv"
+
 DEFAULT_GRAPHQL_URL = "https://api.github.com/graphql"
 
 #: 10 e o maior valor que se mostrou estavel na pratica. Com 25, a API respondeu 502 de

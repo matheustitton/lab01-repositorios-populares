@@ -24,4 +24,4 @@ def primary_language(repository: Repository) -> str:
     (listas de links, colecoes de material de estudo). Sao categoria propria, nao dado
     faltante - por isso viram um rotulo explicito em vez de vazio.
     """
-    raise NotImplementedError
+    return repository.primary_language or UNDEFINED

@@ -2,13 +2,15 @@
 
 Unica fonte de verdade sobre quais colunas derivadas existem e em que ordem aparecem no
 CSV. Acrescentar uma RQ = criar o modulo dela e registrar uma entrada aqui; a
-serializacao, o cabecalho do CSV e a analise seguem automaticamente.
+serializacao, o cabecalho do CSV e o resumo seguem automaticamente.
 """
 
 from __future__ import annotations
 
 from collections.abc import Callable
 from dataclasses import dataclass
+from datetime import datetime
+from functools import partial
 
 from src.domain.metrics import (
     rq01_age,
@@ -27,10 +29,13 @@ class MetricEntry:
     rq: str
     column: str
     compute: Callable[[Repository], MetricValue]
+    #: Depende de "agora" - precisa receber um instante fixo para ser reproduzivel.
+    temporal: bool = False
 
 
 METRICS: tuple[MetricEntry, ...] = (
-    MetricEntry(rq01_age.RQ, rq01_age.COLUMN, rq01_age.age_in_years),
+    MetricEntry(rq01_age.RQ, rq01_age.COLUMN, rq01_age.age_in_years, temporal=True),
+    MetricEntry(rq01_age.RQ, rq01_age.COLUMN_DAYS, rq01_age.age_in_days, temporal=True),
     MetricEntry(
         rq02_merged_pull_requests.RQ,
         rq02_merged_pull_requests.COLUMN,
@@ -41,6 +46,7 @@ METRICS: tuple[MetricEntry, ...] = (
         rq04_days_since_update.RQ,
         rq04_days_since_update.COLUMN,
         rq04_days_since_update.days_since_update,
+        temporal=True,
     ),
     MetricEntry(
         rq05_primary_language.RQ,
@@ -58,3 +64,21 @@ METRICS: tuple[MetricEntry, ...] = (
 def metric_columns() -> tuple[str, ...]:
     """Nomes das colunas derivadas, na ordem do registro."""
     return tuple(entry.column for entry in METRICS)
+
+
+def metrics_at(reference: datetime) -> tuple[MetricEntry, ...]:
+    """Fixa o instante de referencia nas metricas temporais.
+
+    Sem isso, cada linha do CSV seria calculada contra um "agora" ligeiramente diferente,
+    e reprocessar o mesmo JSON produziria numeros distintos. Com o instante fixado, a
+    saida vira funcao apenas da entrada e da data de processamento.
+    """
+    return tuple(
+        MetricEntry(
+            e.rq,
+            e.column,
+            partial(e.compute, reference=reference) if e.temporal else e.compute,
+            e.temporal,
+        )
+        for e in METRICS
+    )
