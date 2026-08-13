@@ -39,6 +39,32 @@ coletado e não acessa a rede.
   categoria própria (listas de links, material de estudo), não dado faltante.
 - **Repositórios sem issues (RQ06):** razão 0.0, analisados à parte — "nenhuma issue" é
   diferente de "nenhuma issue resolvida".
+- **Teto de contagem em releases (RQ03):** a conexão `releases` da GraphQL para de contar
+  em 1000. Repositórios que reportam exatamente 1000 têm valor **censurado à direita**,
+  não o total real — `ggml-org/llama.cpp` aparece com 1000 quando tem 6844. Na coleta de
+  100, 4 repositórios (4%) são afetados. A mediana, que é a estatística pedida pelo
+  enunciado, não muda, porque os censurados estão muito acima dela; média, máximo e o
+  formato da cauda superior ficam incorretos e não devem ser reportados sem ressalva.
+  Os demais campos foram checados e não têm teto: PRs aceitas chegam a 73.425 e issues a
+  250.691 na mesma coleta.
+
+## Validação dos dados
+
+A coleta é conferida contra a API REST — fonte independente da GraphQL — para os campos
+que as duas entregam, e a mão para os agregados que só a GraphQL fornece barato:
+
+```bash
+python -m src.cli.validate_sample --size 8
+```
+
+Resultado em [validacao_amostra.md](validacao_amostra.md). A amostra é determinística e
+prioriza casos de borda (sem linguagem primária, sem releases, sem issues), porque uma
+amostra sorteada tende a conter só repositórios comuns e não exercita o mapeamento.
+
+Diferenças pequenas em `stars` e `pushed_at` entre as duas fontes são **deriva temporal**,
+não erro: o dataset é um retrato do instante da coleta e a REST responde com o estado
+atual. Já `created_at` e `primary_language` são estáveis — divergência ali indicaria erro
+na query ou no mapeamento.
 
 ## Reprodutibilidade
 
