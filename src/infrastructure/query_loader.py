@@ -8,15 +8,20 @@ from __future__ import annotations
 
 from functools import lru_cache
 
+from src.config.settings import QUERIES_DIR
+
+
+class QueryNotFoundError(FileNotFoundError):
+    """Arquivo `.graphql` inexistente."""
+
 
 @lru_cache(maxsize=None)
 def load_query(name: str) -> str:
     """Devolve o conteudo de `src/queries/<name>.graphql`.
 
-    Levanta `QueryNotFoundError` se o arquivo nao existir.
+    O cache evita reler o arquivo a cada pagina da coleta.
     """
-    raise NotImplementedError
-
-
-class QueryNotFoundError(FileNotFoundError):
-    """Arquivo `.graphql` inexistente."""
+    path = QUERIES_DIR / f"{name}.graphql"
+    if not path.exists():
+        raise QueryNotFoundError(f"query nao encontrada: {path}")
+    return path.read_text(encoding="utf-8")
