@@ -30,6 +30,18 @@ class HttpError(RuntimeError):
         self.status = status
 
 
+def get_json(url: str, headers: dict[str, str], timeout: int) -> HttpResponse:
+    """Faz um GET e devolve a resposta desserializada.
+
+    Existe para a validacao cruzada da amostra (Issue #2), que confere os dados da
+    GraphQL contra a API REST - uma fonte independente para os mesmos campos.
+    """
+    request = urllib.request.Request(url, method="GET")
+    for key, value in headers.items():
+        request.add_header(key, value)
+    return _send(request, timeout)
+
+
 def post_json(
     url: str,
     payload: dict[str, Any],
@@ -41,7 +53,11 @@ def post_json(
     request = urllib.request.Request(url, data=data, method="POST")
     for key, value in {"Content-Type": "application/json", **headers}.items():
         request.add_header(key, value)
+    return _send(request, timeout)
 
+
+def _send(request: urllib.request.Request, timeout: int) -> HttpResponse:
+    """Executa a requisicao e traduz as falhas do urllib em `HttpError`."""
     try:
         with urllib.request.urlopen(request, timeout=timeout) as response:
             raw = response.read().decode("utf-8")
