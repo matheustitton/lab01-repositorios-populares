@@ -1,7 +1,6 @@
 # Hipóteses informais
 
-Expectativas do grupo sobre cada questão de pesquisa, com o raciocínio que as sustenta.
-Texto escrito para ser reaproveitado na introdução do relatório final.
+Expectativas do grupo sobre cada questão de pesquisa, com o raciocínio subjacente que as sustenta.
 
 ## Nota de procedimento
 
@@ -11,7 +10,7 @@ previsões cegas: o grupo já tinha visto os números da amostra menor quando as
 
 Registrar isso importa porque muda o que a confirmação de uma hipótese significa. O teste
 real é a coleta de 1000 repositórios: se o comportamento observado em 100 se mantiver em
-uma amostra dez vezes maior, a hipótese ganha força; se não se mantiver, o que os 100
+uma amostra dez vezes maior, a hipótese ganha força. Se não se mantiver, o que os 100
 mostraram era particularidade do topo da lista, não padrão.
 
 ---
@@ -22,8 +21,9 @@ mostraram era particularidade do topo da lista, não padrão.
 
 **Hipótese: sim, com mediana bem acima de cinco anos.**
 
-Estrela é um contador que só cresce — ninguém "desestrala" em massa um projeto que parou
-de usar. Acumular centenas de milhares de estrelas exige tempo de exposição, então a
+Estrela é um contador que só cresce: dificilmente um usuário retira estrelas de um projeto,
+o que reduz a probabilidade de um efeito manada de redução do número de estrelas. 
+Acumular centenas de milhares de estrelas exige tempo de exposição, então a
 amostra dos mais estrelados deve ser enviesada em favor de projetos antigos por
 construção da própria métrica de popularidade.
 
@@ -43,7 +43,7 @@ infraestrutura com processo formal de contribuição (compiladores, runtimes, fr
 devem ter dezenas de milhares, enquanto listas curadas e materiais de estudo recebem
 contribuições pequenas e pontuais.
 
-Se isso valer, a média será várias vezes a mediana — motivo pelo qual o enunciado pede
+Se isso valer, a média será várias vezes a mediana. Motivo pelo qual o enunciado pede
 mediana.
 
 ## RQ03 — Sistemas populares lançam releases com frequência?
@@ -57,8 +57,8 @@ mais estrelados **não é software instalável**: são listas de links, roteiros
 coletâneas de exercícios. Esses projetos não têm o que versionar e nunca publicam
 release.
 
-Some-se que muitos projetos que *são* software versionam apenas por tag Git, sem criar a
-release no GitHub — e a métrica conta releases publicadas, não tags.
+Soma-se a isso que muitos projetos que *são* software versionam apenas por tag Git, sem criar a
+release no GitHub. Portanto, a métrica conta releases publicadas, não tags.
 
 ## RQ04 — Sistemas populares são atualizados com frequência?
 
@@ -95,7 +95,7 @@ interessante da RQ05: parte do que é popular no GitHub não é código.
 
 **Hipótese: sim, com mediana acima de 0,8.**
 
-Projetos populares têm triagem ativa, e issues antigas acabam fechadas — por resolução,
+Projetos populares têm triagem ativa, e issues antigas acabam fechadas: por resolução,
 por duplicidade ou por bot de inatividade. Uma razão baixa indicaria backlog abandonado, o
 que é incompatível com a atividade que esperamos ver na RQ04.
 
@@ -108,7 +108,7 @@ o resumo reporta a mediana com e sem esses casos.
 
 **Métrica:** RQ02, RQ03 e RQ04 agrupadas por linguagem primária.
 
-**Hipótese: não — a linguagem explica pouco, e o tipo de projeto explica muito.**
+**Hipótese: não. A linguagem explica pouco, e o tipo de projeto explica muito.**
 
 Esperamos que a diferença entre linguagens seja menor do que a diferença entre categorias
 de projeto. Um repositório de infraestrutura em Rust e um em Go devem se parecer mais

@@ -24,8 +24,8 @@
 - **Limite adotado:** **3**
 - **Justificativa:** o grupo é um trio e cada integrante é responsável por 2–3 RQs, o que
   dá **uma tarefa em andamento por pessoa**. Um limite maior permitiria que alguém abrisse
-  frentes paralelas e acumulasse trabalho pela metade no fim da sprint; um limite menor
-  bloquearia integrantes ociosos. O limite força terminar antes de começar — quando `Doing`
+  frentes paralelas e acumulasse trabalho pela metade no fim da sprint, já um limite menor
+  bloquearia integrantes ociosos. O limite força terminar antes de começar. Quando `Doing`
   está cheio, quem ficou livre revisa o que está em `Review` em vez de puxar tarefa nova,
   o que também evita o gargalo de revisão no último dia.
 
@@ -33,7 +33,7 @@ Registrado na Issue [#5](https://github.com/matheustitton/lab01-repositorios-pop
 
 ## Regras acordadas pelo grupo
 
-1. Todo cartão é uma **Issue de verdade** do repositório — sem draft issues.
+1. Todo cartão é uma **Issue de verdade** do repositório (sem draft issues).
 2. Toda Issue tem **Assignee** antes de sair de `Backlog`.
 3. Todo commit **referencia o número da Issue** (`#12 implementa consulta GraphQL`);
    commits sem referência não são considerados na avaliação.
@@ -59,7 +59,7 @@ Como a API do Projects não expõe histórico de mudança de coluna, esta série
 base de dados dos Labs 04 e 05. **Um snapshot não tirado não pode ser reconstruído depois.**
 
 O script também audita o board a cada execução e avisa sobre cartões sem Assignee, cartões
-sem Issue real (draft) e cartões cujo Status contradiz o estado da Issue — os três pontos
+sem Issue real (draft) e cartões cujo Status contradiz o estado da Issue: os três pontos
 que o enunciado penaliza.
 
 ## Print do board

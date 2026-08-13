@@ -2,7 +2,7 @@
 
 ## Linguagens mais populares (RQ05 e RQ07)
 
-O enunciado exige definir e referenciar explicitamente uma fonte para "linguagens mais
+O enunciado exige definir e referenciar explicitamente uma fonte para as "linguagens mais
 populares", mantendo **a mesma referência ao longo de todo o laboratório**.
 
 - **Fonte escolhida:** GitHub Octoverse
@@ -33,9 +33,9 @@ lista paralela de linguagens.
 
 ### Por que Octoverse
 
-O estudo analisa repositórios do próprio GitHub, então um ranking derivado da atividade
-no GitHub é mais coerente com a amostra do que o TIOBE, que mede volume de buscas na web,
-ou o GitHut, que não tem edição recente mantida.
+O ranqueamento do TIOBE, um dos mais usados para essas pesquisas, mede volume de buscas na web.
+Porém, nos parece mais adequado um ranqueamento que leve em consideração o volume de atividades
+dentro do github.
 
 ### Ressalva importante
 
@@ -43,10 +43,9 @@ ou o GitHut, que não tem edição recente mantida.
 medidas diferentes de "popularidade": contribuidores medem quem *escreve* código,
 estrelas medem quem *marca* o projeto. Uma linguagem pode liderar o Octoverse por ser
 usada em muitos projetos corporativos pequenos e ainda assim aparecer pouco entre os
-repositórios mais estrelados, e vice-versa. A RQ05 compara essas duas ordenações — a
-divergência entre elas é resultado, não erro.
+repositórios mais estrelados, e vice-versa. A RQ05 compara justamente essas duas ordenações e essa divergência é um dos diferenciais do nosso requisito 5.
 
-Um segundo limite: o ranking cobre apenas linguagens. Repositórios sem linguagem primária
+Em um segundo limite o ranking cobre apenas linguagens: Repositórios sem linguagem primária
 (listas curadas, materiais de estudo) não têm posição possível nele e são tratados como
 categoria `Undefined` à parte.
 

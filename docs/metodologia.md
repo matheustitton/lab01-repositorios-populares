@@ -12,7 +12,7 @@ Os 1.000 repositórios com maior número de estrelas do GitHub, obtidos via
 
 Script próprio do grupo, escrito em Python, consumindo diretamente a GraphQL API v4.
 Conforme a restrição do enunciado, **nenhuma biblioteca de terceiros que consulte a API
-do GitHub foi utilizada** — as requisições usam apenas `urllib.request`, da biblioteca
+do GitHub foi utilizada**. As requisições usam apenas `urllib.request`, da biblioteca
 padrão. `pandas` e `matplotlib` aparecem somente na etapa de análise, que lê o CSV já
 coletado e não acessa a rede.
 
@@ -50,7 +50,7 @@ coletado e não acessa a rede.
 
 ## Validação dos dados
 
-A coleta é conferida contra a API REST — fonte independente da GraphQL — para os campos
+A coleta é conferida em comparação à API REST (fonte independente da GraphQL) para os campos
 que as duas entregam, e a mão para os agregados que só a GraphQL fornece barato:
 
 ```bash
@@ -61,9 +61,9 @@ Resultado em [validacao_amostra.md](validacao_amostra.md). A amostra é determin
 prioriza casos de borda (sem linguagem primária, sem releases, sem issues), porque uma
 amostra sorteada tende a conter só repositórios comuns e não exercita o mapeamento.
 
-Diferenças pequenas em `stars` e `pushed_at` entre as duas fontes são **deriva temporal**,
-não erro: o dataset é um retrato do instante da coleta e a REST responde com o estado
-atual. Já `created_at` e `primary_language` são estáveis — divergência ali indicaria erro
+Diferenças pequenas em `stars` e `pushed_at` entre as duas fontes são **deriva temporal**:
+o dataset é um retrato do instante da coleta e a REST responde com o estado
+atual. Já `created_at` e `primary_language` são estáveis. A divergência ali indicaria erro
 na query ou no mapeamento.
 
 ## Reprodutibilidade

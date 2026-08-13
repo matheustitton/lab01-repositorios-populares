@@ -2,9 +2,9 @@
 
 **Disciplina:** Laboratório de Experimentação de Software
 **Professor:** Danilo Maia
-**Integrantes:** `<preencher>`
-**Repositório:** `<preencher>`
-**GitHub Projects:** `<preencher>`
+**Integrantes:** Matheus Ferreira Titton, Murilo Andrade Machado, Pedro Henrique Barbosa Montandon de Araújo
+**Repositório:** https://github.com/matheustitton/lab01-repositorios-populares
+**GitHub Projects:** https://github.com/matheustitton/lab01-repositorios-populares/projects
 
 ---
 
