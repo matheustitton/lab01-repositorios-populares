@@ -137,7 +137,7 @@ cada RQ fica para o relatório final.
 |---|---|---|---|
 | RQ01 | 0/1000 | 28 repositórios com idade < 0,5 ano (o mais novo, deepseek-ai/deepseek-harness, 0,01 ano); o mais antigo é rails/rails, 18,35 anos (criado em 2008-04-11) | Q1=3,52 · mediana=7,75 · Q3=11,35 · P95=14,95 anos. Nenhum valor negativo ou anterior à fundação do GitHub (2008) |
 | RQ02 | 0/1000 | Máximo 103.316 PRs (firstcontributions/first-contributions), seguido de 96.977 (llvm/llvm-project) e 95.483 (elastic/elasticsearch); 129 repositórios (12,9%) acima de 10× a mediana | 20 repositórios (2%) com zero PRs aceitas. Q1=175 · mediana=768 · Q3=3.413,5 · P95=19.839,5. Distribuição fortemente assimétrica: média (4.234) é 5,5× a mediana |
-| RQ03 | | | |
-| RQ04 | | | |
-| RQ05 | | | |
+| RQ03 | 0/1000 | 21 repositórios (2,1%) com contagem censurada no teto de 1000 da API (ver [validacao_amostra.md](validacao_amostra.md)) — valor real é maior, não confiável para média/máximo | 286 repositórios (28,6%) com zero releases. Q1=0 · mediana=39 · Q3=146,25 · P95=611,35 — quartil inferior inteiro em zero |
+| RQ04 | 0/1000 | 115 repositórios (11,5%) sem push há mais de 1 ano; o mais parado é exacity/deeplearningbook-chinese, 2.450,77 dias (~6,7 anos) sem push | Q1=0,19 · mediana=1,81 · Q3=49,41 · P95=748,06 dias — cauda longa puxada por poucos repositórios abandonados |
+| RQ05 | 87/1000 (8,7%) sem linguagem primária, rotulados `Undefined` | 12 das 44 linguagens distintas aparecem em apenas 1 repositório cada | Top 5 concentram 620/1000 (62%) da amostra: Python (228), TypeScript (174), JavaScript (111), Undefined (87), Go (76) |
 | RQ06 | | | |
