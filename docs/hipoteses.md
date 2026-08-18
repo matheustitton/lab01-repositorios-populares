@@ -125,14 +125,18 @@ repositórios não sustenta conclusão.
 
 ---
 
+
 ## Consistência dos dados nos 1000 repositórios (Lab01S02)
 
 Cada integrante valida, para as suas RQs: distribuição, outliers e valores ausentes.
+Coleta de 1000 repositórios em 2026-08-18 (ver [metodologia.md](metodologia.md) para
+data, contagem e custo em rate limit). Apenas consistência dos dados — a resposta de
+cada RQ fica para o relatório final.
 
 | RQ | Valores ausentes | Outliers observados | Observações |
 |---|---|---|---|
-| RQ01 | | | |
-| RQ02 | | | |
+| RQ01 | 0/1000 | 28 repositórios com idade < 0,5 ano (o mais novo, deepseek-ai/deepseek-harness, 0,01 ano); o mais antigo é rails/rails, 18,35 anos (criado em 2008-04-11) | Q1=3,52 · mediana=7,75 · Q3=11,35 · P95=14,95 anos. Nenhum valor negativo ou anterior à fundação do GitHub (2008) |
+| RQ02 | 0/1000 | Máximo 103.316 PRs (firstcontributions/first-contributions), seguido de 96.977 (llvm/llvm-project) e 95.483 (elastic/elasticsearch); 129 repositórios (12,9%) acima de 10× a mediana | 20 repositórios (2%) com zero PRs aceitas. Q1=175 · mediana=768 · Q3=3.413,5 · P95=19.839,5. Distribuição fortemente assimétrica: média (4.234) é 5,5× a mediana |
 | RQ03 | | | |
 | RQ04 | | | |
 | RQ05 | | | |

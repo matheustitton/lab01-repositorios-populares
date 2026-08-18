@@ -54,4 +54,5 @@ categoria `Undefined` à parte.
 - **API:** GitHub GraphQL API v4 — https://docs.github.com/en/graphql
 - **Consulta:** `search(type: REPOSITORY, query: "stars:>1 sort:stars-desc")`
 - **Data da coleta (Lab01S01):** 2026-08-13
-- **Total de repositórios:** 100 (Lab01S01); 1000 previsto para o Lab01S02
+- **Data da coleta (Lab01S02):** 2026-08-18
+- **Total de repositórios:** 100 (Lab01S01); 1000 (Lab01S02)

@@ -74,6 +74,6 @@ python -m src.cli.collect_repositories --limit 1000 --save-raw
 
 As páginas brutas ficam em `data/raw/`, permitindo reprocessar o CSV sem nova coleta.
 
-- **Data da coleta:** `<preencher>`
-- **Total de repositórios obtidos:** `<preencher>`
-- **Custo em rate limit:** `<preencher>`
+- **Data da coleta:** 2026-08-18 (Lab01S02)
+- **Total de repositórios obtidos:** 1000 (100 páginas de 10, sem degradação de página)
+- **Custo em rate limit:** 100 pontos (4997 → 4897 de 5000/hora)
