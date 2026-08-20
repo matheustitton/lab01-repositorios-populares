@@ -140,4 +140,20 @@ cada RQ fica para o relatório final.
 | RQ03 | 0/1000 | 21 repositórios (2,1%) com contagem censurada no teto de 1000 da API (ver [validacao_amostra.md](validacao_amostra.md)) — valor real é maior, não confiável para média/máximo | 286 repositórios (28,6%) com zero releases. Q1=0 · mediana=39 · Q3=146,25 · P95=611,35 — quartil inferior inteiro em zero |
 | RQ04 | 0/1000 | 115 repositórios (11,5%) sem push há mais de 1 ano; o mais parado é exacity/deeplearningbook-chinese, 2.450,77 dias (~6,7 anos) sem push | Q1=0,19 · mediana=1,81 · Q3=49,41 · P95=748,06 dias — cauda longa puxada por poucos repositórios abandonados |
 | RQ05 | 87/1000 (8,7%) sem linguagem primária, rotulados `Undefined` | 12 das 44 linguagens distintas aparecem em apenas 1 repositório cada | Top 5 concentram 620/1000 (62%) da amostra: Python (228), TypeScript (174), JavaScript (111), Undefined (87), Go (76) |
-| RQ06 | | | |
+| RQ06 | 43/1000 (4,3%) sem nenhuma issue — denominador zero, razão não interpretável. A métrica devolve `0.0` nesses casos, mas `has_issues()` os separa; a base interpretável é de **957 repositórios** | Cauda inferior curta: menor razão 0,077 (ComposioHQ/awesome-claude-skills, 11/143), seguida de 0,086 (floodsung/Deep-Learning-Papers-Reading-Roadmap) e 0,095 (anthropics/prompt-eng-interactive-tutorial) — todos repositórios de conteúdo/lista, não de software. 28 repositórios (2,9%) com razão exatamente 1,0. Apenas 1 repositório tem denominador frágil (≤ 5 issues) | Q1=0,704 · mediana=0,876 · Q3=0,969 · P5=0,317 · P95=0,998; média (0,802) abaixo da mediana — distribuição assimétrica à esquerda, concentrada no alto. Integridade: nenhum caso de `closed > total` e nenhuma razão fora de [0, 1]. Maior volume absoluto: microsoft/vscode, 233.639/251.153 = 0,930 |
+
+**Nota sobre a RQ07.** Ela não tem linha própria na tabela porque não é uma métrica por
+repositório: é a RQ02, a RQ03 e a RQ04 agrupadas por linguagem primária, e só será
+calculada no Lab01S03. O que cabe verificar agora é se o **tamanho de amostra por
+linguagem** sustenta esse tipo de comparação com n=1000 — e sustenta apenas parcialmente:
+
+- São **44 rótulos distintos**, mas a distribuição é muito desigual: **30 deles têm n < 10**
+  e somam apenas 86 repositórios; **12 aparecem em um único repositório**.
+- Apenas **8 rótulos têm n ≥ 30**, e um deles é `Undefined` (ausência de linguagem, não uma
+  linguagem). Restam **7 linguagens comparáveis**: Python (228), TypeScript (174),
+  JavaScript (111), Go (76), Rust (57), C++ (41) e Java (41) — **728 repositórios (72,8%)**
+  da amostra.
+- **Consequência para o Lab01S03:** a comparação entre linguagens deve se restringir a essas
+  7; a cauda de 30 linguagens com n < 10 não sustenta mediana estável e será agregada como
+  "Outras" ou omitida, com o critério declarado no relatório. Comparar medianas de RQ02/RQ03/RQ04
+  para linguagens com n = 1 produziria diferenças sem qualquer significado estatístico.
