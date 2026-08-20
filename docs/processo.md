@@ -52,7 +52,7 @@ sprint. Reexecutar na mesma sprint substitui as linhas daquela sprint — nunca 
 | Sprint | Data da captura | Itens | Distribuição |
 |---|---|---|---|
 | Lab01S01 | 2026-08-13 | 7 | Done 5 · Doing 1 · Sprint Backlog 1 |
-| Lab01S02 | | | |
+| Lab01S02 | 2026-08-20 | 12 | Done 10 · Sprint Backlog 2 |
 | Lab01S03 | | | |
 
 Como a API do Projects não expõe histórico de mudança de coluna, esta série acumulada é a
