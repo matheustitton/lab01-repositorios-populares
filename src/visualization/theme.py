@@ -2,6 +2,7 @@
 
 Centralizar paleta, tamanho de figura e DPI faz com que as sete figuras do relatorio
 tenham a mesma aparencia sem repetir configuracao em cada grafico.
+
 """
 
 from __future__ import annotations
@@ -19,4 +20,28 @@ PALETTE = {
 
 def apply_theme() -> None:
     """Aplica o estilo global do matplotlib. Chamar uma vez, antes de plotar."""
-    raise NotImplementedError
+    import matplotlib.pyplot as plt
+
+    plt.rcParams.update(
+        {
+            "figure.figsize": FIGURE_SIZE,
+            "figure.dpi": DPI,
+            "savefig.dpi": DPI,
+            "savefig.bbox": "tight",
+            "axes.grid": True,
+            "axes.edgecolor": PALETTE["muted"],
+            "axes.labelcolor": "#1e293b",
+            "axes.titleweight": "bold",
+            "axes.spines.top": False,
+            "axes.spines.right": False,
+            "grid.color": PALETTE["grid"],
+            "grid.linewidth": 0.8,
+            "font.size": 11,
+            "text.color": "#1e293b",
+            "xtick.color": "#1e293b",
+            "ytick.color": "#1e293b",
+            "axes.prop_cycle": plt.cycler(
+                color=[PALETTE["primary"], PALETTE["secondary"], PALETTE["muted"]]
+            ),
+        }
+    )
