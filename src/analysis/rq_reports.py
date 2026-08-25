@@ -43,3 +43,33 @@ def rq02_merged_pull_requests(frame: pd.DataFrame) -> RQResult:
         summary=statistics.summarize(frame["merged_pull_requests"]),
         table=_value_table(frame, "merged_pull_requests"),
     )
+
+
+def rq03_releases(frame: pd.DataFrame) -> RQResult:
+    """Lancam releases com frequencia? (mediana de releases)"""
+    summary = statistics.summarize(frame["releases"])
+    sem_release = int((frame["releases"] == 0).sum())
+    total = len(frame)
+    summary = {
+        **summary,
+        "sem_release": sem_release,
+        "sem_release_pct": round(sem_release / total, 4) if total else 0.0,
+    }
+    return RQResult(
+        rq="RQ03",
+        question="Sistemas populares lancam releases com frequencia?",
+        metric="Total de releases (releases)",
+        summary=summary,
+        table=_value_table(frame, "releases"),
+    )
+
+
+def rq04_days_since_update(frame: pd.DataFrame) -> RQResult:
+    """Sao atualizados com frequencia? (mediana de dias desde o ultimo push)"""
+    return RQResult(
+        rq="RQ04",
+        question="Sistemas populares sao atualizados com frequencia?",
+        metric="Dias desde a ultima atualizacao (days_since_update)",
+        summary=statistics.summarize(frame["days_since_update"]),
+        table=_value_table(frame, "days_since_update"),
+    )
